@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark-blue">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BYE-AI-CACHE v1.5 // Win2000 & Winamp 3D AI Cleaner</title>
+  <link rel="stylesheet" href="skins.css?v=1.5" />
+</head>
+<body>
+  <div class="desktop-shell">
+
+    <!-- =====================================================================
+         MODULE 1: MAIN DECK (WINAMP HEAD UNIT + WIN2000 3D BEVELS)
+    ====================================================================== -->
+    <section class="win-window" id="win-deck">
+      <header class="win-titlebar" data-shade-target="deck-body">
+        <div class="titlebar-ridges left"></div>
+        <div class="titlebar-title">
+          <span class="win-icon">⚡</span>
+          <span>BYE-AI-CACHE v1.0 // AI &amp; DEV JUNK AMP</span>
+        </div>
+        <div class="titlebar-ridges right"></div>
+        <div class="titlebar-controls">
+          <button class="skin-switch-btn" id="btn-theme-light" title="Cambiar a Skin Gris Claro (Windows 2000 Classic)">☀️ WIN2K CLARO</button>
+          <button class="skin-switch-btn active" id="btn-theme-dark" title="Cambiar a Skin Gris Oscuro & Azul (Winamp Cyber Blue)">🌙 DARK AZUL</button>
+          <button class="win-ctrl-btn shade-btn" data-target="deck-body" title="Minimizar/Expandir módulo (WindowShade)">_</button>
+        </div>
+      </header>
+
+      <div class="win-body deck-grid" id="deck-body">
+        <!-- Left: Sunken 3D LCD Display -->
+        <div class="lcd-screen bevel-inset">
+          <div class="lcd-top-row">
+            <div class="lcd-status-badge" id="lcd-state">READY // IDLE</div>
+            <div class="lcd-clock" id="lcd-total-gb">0.00 GB</div>
+          </div>
+
+          <!-- Marquee Ticker -->
+          <div class="lcd-marquee-box">
+            <div class="lcd-marquee-text" id="lcd-marquee">
+              *** BYE-AI-CACHE v1.0 READY — PRESIONA [SMART SCAN] PARA DETECTAR CACHES DE IA, HERMES, COMFYUI, GEMINI, OLLAMA &amp; HUGGINGFACE ***
+            </div>
+          </div>
+
+          <!-- Bitrate / Telemetry + Mini Spectrum -->
+          <div class="lcd-bottom-row">
+            <div class="lcd-telemetry">
+              <div class="tele-item">
+                <span class="tele-val" id="lcd-selected-gb">0 B</span>
+                <span class="tele-lbl">A LIBERAR</span>
+              </div>
+              <div class="tele-item">
+                <span class="tele-val" id="lcd-files-count">0</span>
+                <span class="tele-lbl">FILES</span>
+              </div>
+              <div class="tele-item">
+                <span class="tele-val" id="lcd-scan-speed">0</span>
+                <span class="tele-lbl">MS SCAN</span>
+              </div>
+            </div>
+
+            <!-- 5-Band Spectrum Analyzer by Category -->
+            <div class="lcd-spectrum" id="lcd-spectrum" title="Uso por categoría: AGENTS | COMFYUI | MODELS | DEVCACHE | CUSTOM">
+              <div class="spec-col"><div class="spec-bar" id="spec-AGENTS" style="height:15%"></div><span>AGT</span></div>
+              <div class="spec-col"><div class="spec-bar" id="spec-COMFYUI" style="height:15%"></div><span>CMF</span></div>
+              <div class="spec-col"><div class="spec-bar" id="spec-MODELS" style="height:15%"></div><span>MDL</span></div>
+              <div class="spec-col"><div class="spec-bar" id="spec-DEVCACHE" style="height:15%"></div><span>DEV</span></div>
+              <div class="spec-col"><div class="spec-bar" id="spec-CUSTOM" style="height:15%"></div><span>DSK</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Controls, Custom Path Bar & Transport -->
+        <div class="deck-controls-panel">
+          <!-- Custom Folder Input Row -->
+          <div class="custom-path-row">
+            <label for="input-custom-path" class="win-label">RUTA / DISCO:</label>
+            <input
+              type="text"
+              id="input-custom-path"
+              class="win-input bevel-inset"
+              placeholder="Ej: G:\ComfyUI_windows_portable o E:\ia-ai"
+              value="E:\ia-ai"
+            />
+            <button class="win-btn btn-compact" id="btn-pick-folder" title="Elegir carpeta con ventana de Windows">📂 ELEGIR...</button>
+            <button class="win-btn btn-compact" id="btn-scan-custom" title="Escanear la ruta escrita arriba">🔍 ESCANEAR RUTA</button>
+          </div>
+
+          <!-- Segmented 3D Progress Bar -->
+          <div class="progress-groove bevel-inset" id="scan-progress-wrap">
+            <div class="progress-segments" id="scan-progress-bar" style="width: 100%"></div>
+            <span class="progress-label" id="scan-progress-text">SISTEMA LISTO — ESCANEO HÍBRIDO ACTIVO</span>
+          </div>
+
+          <!-- Transport & Action Buttons (Winamp Style) -->
+          <div class="transport-row">
+            <button class="win-btn transport-btn btn-primary" id="btn-smart-scan">
+              <span class="btn-led led-green"></span> ▶ SMART SCAN (IA + CACHÉ)
+            </button>
+            <button class="win-btn transport-btn" id="btn-select-green" title="Seleccionar automáticamente toda la caché segura (Semáforo Verde)">
+              ☑ AUTO-SELECCIONAR SEGUROS (🟢)
+            </button>
+            <button class="win-btn transport-btn btn-clean" id="btn-clean-recycle" title="Enviar archivos seleccionados a la Papelera de Reciclaje de Windows">
+              ♻️ LIMPIAR A PAPELERA
+            </button>
+            <button class="win-btn transport-btn btn-danger" id="btn-clean-perm" title="Borrado permanente directo (útil para modelos de +20 GB)">
+              🔥 BORRADO PERMANENTE
+            </button>
+
+            <!-- Dockable Window Toggles (EQ / PL / VIS) -->
+            <div class="module-toggles">
+              <button class="win-btn toggle-mod-btn active" data-mod="win-eq" title="Mostrar/Ocultar Radares y Semáforo">
+                <span class="mini-led"></span>EQ
+              </button>
+              <button class="win-btn toggle-mod-btn active" data-mod="win-pl" title="Mostrar/Ocultar Playlist de Archivos">
+                <span class="mini-led"></span>PL
+              </button>
+              <button class="win-btn toggle-mod-btn active" data-mod="win-vis" title="Mostrar/Ocultar Mapa 3D WinDirStat">
+                <span class="mini-led"></span>3D
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         MODULE 2: GRAPHIC EQUALIZER // RADARS & TRAFFIC LIGHT SEMÁFORO
+    ====================================================================== -->
+    <section class="win-window" id="win-eq">
+      <header class="win-titlebar" data-shade-target="eq-body">
+        <div class="titlebar-ridges left"></div>
+        <div class="titlebar-title">
+          <span class="win-icon">🎛️</span>
+          <span>EQUALIZER // RADARES DE IA &amp; SEMÁFORO DE SEGURIDAD</span>
+        </div>
+        <div class="titlebar-ridges right"></div>
+        <div class="titlebar-controls">
+          <button class="win-ctrl-btn shade-btn" data-target="eq-body">_</button>
+        </div>
+      </header>
+
+      <div class="win-body eq-body-grid" id="eq-body">
+        <!-- 3-Level Traffic Light Cards -->
+        <div class="traffic-cards">
+          <button class="traffic-card bevel-outset active" data-safety="all" id="filter-safety-all">
+            <div class="tc-header">TODOS LOS NIVELES</div>
+            <div class="tc-value" id="tot-all">0 B</div>
+            <div class="tc-desc">Ver todo el espacio detectado</div>
+          </button>
+
+          <button class="traffic-card bevel-outset safety-green" data-safety="green" id="filter-safety-green">
+            <div class="tc-header"><span class="led-dot green"></span> 🟢 CACHÉ PURA (SEGURO)</div>
+            <div class="tc-value" id="tot-green">0 B</div>
+            <div class="tc-desc">Logs, pip/uv/npm, Comfy temp, sesiones viejas</div>
+          </button>
+
+          <button class="traffic-card bevel-outset safety-yellow" data-safety="yellow" id="filter-safety-yellow">
+            <div class="tc-header"><span class="led-dot yellow"></span> 🟡 MODELOS / OUTPUTS</div>
+            <div class="tc-value" id="tot-yellow">0 B</div>
+            <div class="tc-desc">.safetensors, .gguf, HF/Ollama, renders</div>
+          </button>
+
+          <button class="traffic-card bevel-outset safety-red" data-safety="red" id="filter-safety-red">
+            <div class="tc-header"><span class="led-dot red"></span> 🔴 PROTEGIDO (BLOQUEADO)</div>
+            <div class="tc-value" id="tot-red">0 B</div>
+            <div class="tc-desc">Memoria Hermes (.hermes.md), Workflows .json, MCP</div>
+          </button>
+        </div>
+
+        <!-- Radar Presets + Drive Filter + Age Filter -->
+        <div class="eq-filters-bar bevel-inset">
+          <div class="radar-chips" id="drive-chips">
+            <span class="win-label" style="margin-right:4px;">DISCO:</span>
+            <button class="win-btn chip-btn drive-btn active" data-drive="ALL">🌐 TODOS</button>
+          </div>
+
+          <div class="radar-chips" id="radar-chips">
+            <span class="win-label" style="margin-right:4px;">RADAR:</span>
+            <button class="win-btn chip-btn cat-btn active" data-cat="ALL">🌐 TODOS</button>
+            <button class="win-btn chip-btn cat-btn" data-cat="AGENTS">⚡ HERMES / CODEX / CLAUDE / CURSOR / GEMINI</button>
+            <button class="win-btn chip-btn cat-btn" data-cat="COMFYUI">🎨 COMFYUI &amp; OUTPUTS</button>
+            <button class="win-btn chip-btn cat-btn" data-cat="MODELS">🧠 MODELOS (HF / OLLAMA / GGUF)</button>
+            <button class="win-btn chip-btn cat-btn" data-cat="DEVCACHE">📦 PIP / CONDAS / NPM / TEMP</button>
+            <button class="win-btn chip-btn cat-btn" data-cat="CUSTOM">💿 WORKSPACE</button>
+          </div>
+
+          <div class="age-filter-box">
+            <label for="select-age" class="win-label">ANTIGÜEDAD:</label>
+            <select id="select-age" class="win-select bevel-inset">
+              <option value="0">Cualquier fecha (Todos)</option>
+              <option value="7">+7 días sin tocar</option>
+              <option value="30">+30 días sin tocar</option>
+              <option value="60">+60 días sin tocar</option>
+              <option value="90">+90 días sin tocar</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================================
+         LOWER DOCK: MODULE 3 (PLAYLIST EDITOR) + MODULE 4 (3D VISUALIZER)
+    ====================================================================== -->
+    <div class="lower-dock-grid">
+
+      <!-- MODULE 3: WINAMP PLAYLIST EDITOR (FILE & CACHE LIST) -->
+      <section class="win-window" id="win-pl">
+        <header class="win-titlebar" data-shade-target="pl-body">
+          <div class="titlebar-ridges left"></div>
+          <div class="titlebar-title">
+            <span class="win-icon">📋</span>
+            <span>PLAYLIST EDITOR // ARCHIVOS Y CACHÉS DETECTADOS (<span id="pl-count">0</span> TRACKS)</span>
+          </div>
+          <div class="titlebar-ridges right"></div>
+          <div class="titlebar-controls">
+            <button class="win-ctrl-btn shade-btn" data-target="pl-body">_</button>
+          </div>
+        </header>
+
+        <div class="win-body pl-body-wrap" id="pl-body">
+          <!-- Search & Quick Sort Bar -->
+          <div class="pl-toolbar">
+            <input
+              type="text"
+              id="input-search"
+              class="win-input bevel-inset"
+              placeholder="Filtrar por nombre, ruta, extensión (.safetensors, .gguf, hermes, comfy...)"
+            />
+            <select id="select-sort" class="win-select bevel-inset">
+              <option value="size_desc">Orden: Mayor Tamaño ▼</option>
+              <option value="age_desc">Orden: Más Antiguos ▼</option>
+              <option value="safety_asc">Orden: Semáforo (🟢 primero)</option>
+              <option value="name_asc">Orden: Nombre A-Z</option>
+            </select>
+          </div>
+
+          <!-- Sunken Playlist Screen -->
+          <div class="playlist-viewport bevel-inset" id="playlist-container">
+            <div class="pl-empty">Escaneando radares de IA...</div>
+          </div>
+
+          <!-- Winamp-style Playlist Footer Buttons -->
+          <div class="pl-footer">
+            <div class="pl-footer-left">
+              <button class="win-btn btn-compact" id="btn-sel-all-visible">☑ SEL VISIBLES (🟢/🟡)</button>
+              <button class="win-btn btn-compact" id="btn-sel-none">☐ NINGUNO</button>
+              <button class="win-btn btn-compact" id="btn-sel-invert">⇄ INVERTIR</button>
+            </div>
+            <div class="pl-footer-lcd bevel-inset" id="pl-selection-summary">
+              0 SELECCIONADOS // 0 B
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE 4: WINDIRSTAT 3D CUSHION TREEMAP VISUALIZER -->
+      <section class="win-window" id="win-vis">
+        <header class="win-titlebar" data-shade-target="vis-body">
+          <div class="titlebar-ridges left"></div>
+          <div class="titlebar-title">
+            <span class="win-icon">🧊</span>
+            <span>AVS VISUALIZER // MAPA DE BLOQUES 3D (WINDIRSTAT CUSHION)</span>
+          </div>
+          <div class="titlebar-ridges right"></div>
+          <div class="titlebar-controls">
+            <button class="win-ctrl-btn shade-btn" data-target="vis-body">_</button>
+          </div>
+        </header>
+
+        <div class="win-body vis-body-wrap" id="vis-body">
+          <div class="vis-ColorMode-bar">
+            <span class="win-label">COLOR 3D POR:</span>
+            <button class="win-btn btn-compact active" id="btn-color-safety">🚦 SEMÁFORO (🟢/🟡/🔴)</button>
+            <button class="win-btn btn-compact" id="btn-color-cat">🎨 CATEGORÍA IA</button>
+            <span class="vis-hint">Click en un bloque 3D = Seleccionar/Ver en Playlist</span>
+          </div>
+
+          <div class="treemap-canvas-wrap bevel-inset" id="treemap-wrap">
+            <canvas id="treemap-canvas"></canvas>
+          </div>
+
+          <!-- Selected/Hovered Block Details Readout -->
+          <div class="vis-inspector bevel-inset" id="vis-inspector">
+            <div class="insp-title" id="insp-name">Pasá el mouse por los cojines 3D para inspeccionar</div>
+            <div class="insp-meta" id="insp-path">Hacé click en cualquier bloque para marcarlo en la lista</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL WIN2000: DRY-RUN & CONFIRMACIÓN DE LIMPIEZA
+  ====================================================================== -->
+  <div class="modal-backdrop hidden" id="clean-modal">
+    <div class="win-window modal-window">
+      <header class="win-titlebar">
+        <div class="titlebar-ridges left"></div>
+        <div class="titlebar-title">
+          <span class="win-icon">⚠️</span>
+          <span id="modal-title">CONFIRMAR LIMPIEZA // DRY-RUN</span>
+        </div>
+        <div class="titlebar-ridges right"></div>
+        <div class="titlebar-controls">
+          <button class="win-ctrl-btn" id="btn-modal-close">✕</button>
+        </div>
+      </header>
+      <div class="win-body modal-body">
+        <div class="modal-alert-box bevel-inset" id="modal-summary-text"></div>
+        <div class="modal-file-list bevel-inset" id="modal-file-list"></div>
+        <div class="modal-actions">
+          <button class="win-btn" id="btn-modal-cancel">CANCELAR</button>
+          <button class="win-btn btn-primary" id="btn-modal-confirm">✅ CONFIRMAR Y EJECUTAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=1.5"></script>
+</body>
+</html>

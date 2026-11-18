@@ -1,0 +1,890 @@
+{
+  "version": "1.5.0",
+  "safety_levels": {
+    "green": {
+      "label": "CACHE PURA / 100% SEGURO",
+      "description": "Cachés técnicas de agentes (Hermes, Antigravity, Codex, Cursor, Claude), paquetes pip/npm/conda, temporales, logs y caché de Adobe. Jamás borra skills, memorias, chats, workflows ni modelos."
+    },
+    "yellow": {
+      "label": "MODELOS / OUTPUTS / SHADERS / HISTORIALES",
+      "description": "Pesos de modelos (.safetensors, .gguf), renders de ComfyUI, historiales de sesiones/chats pasados y shaders DirectX de NVIDIA (DXCache). Revisar antes de borrar."
+    },
+    "red": {
+      "label": "PROTEGIDO / SKILLS, MEMORIA & CONFIG",
+      "description": "Skills, comandos y memorias de Hermes, Codex, Claude, Cursor y Antigravity (.hermes.md, CLAUDE.md, AGENTS.md, .cursorrules), workflows .json de ComfyUI y configs MCP. Bloqueados con candado."
+    }
+  },
+  "protected_patterns": [
+    ".hermes.md",
+    "skill.md",
+    "claude.md",
+    "gemini.md",
+    "agents.md",
+    "instructions.md",
+    ".cursorrules",
+    "*.mdc",
+    ".windsurfrules",
+    ".clinerules",
+    ".aider.conf.yml",
+    "hermes_memory*",
+    "*memory*",
+    "*skill*",
+    "active-profile.json",
+    "connections.json",
+    "secure-token-storage.json",
+    "auth.json",
+    "mcp.json",
+    "mcp_config.json",
+    "claude_desktop_config.json",
+    "workflow*.json",
+    "*workflow*.json",
+    "settings.json",
+    "preferences",
+    "config.toml",
+    "config.yaml",
+    "config.yml",
+    "config.json"
+  ],
+  "protected_dir_names": [
+    "skills",
+    "skill",
+    "commands",
+    "memory",
+    "memories",
+    "knowledge",
+    "rules",
+    "rule",
+    "prompts",
+    "prompt",
+    "instructions",
+    "agents",
+    "subagents",
+    "personas",
+    "profiles",
+    "mcp",
+    "plugins",
+    "plugin",
+    "plugin_data",
+    "extensions",
+    "custom_nodes",
+    "builtin",
+    "workflows",
+    "clases",
+    "docs",
+    "config",
+    "configs",
+    "settings",
+    "auth",
+    "credentials"
+  ],
+  "pure_cache_dir_names": [
+    "cache",
+    "code cache",
+    "gpucache",
+    "gpupersistentcache",
+    "grshadercache",
+    "shadercache",
+    "dawngraphitecache",
+    "dawnwebgpucache",
+    "cacheddata",
+    "cachedextensionvsixs",
+    "blob_storage",
+    "videodecodestats",
+    "logs",
+    "crashes",
+    "crashpad",
+    "crashdumps",
+    "temp",
+    "tmp",
+    "squirreltemp",
+    "statsig",
+    "__pycache__",
+    ".pytest_cache",
+    ".mypy_cache",
+    ".ruff_cache"
+  ],
+  "model_extensions": [
+    ".safetensors",
+    ".gguf",
+    ".ckpt",
+    ".pt",
+    ".pth",
+    ".bin",
+    ".onnx",
+    ".ggml",
+    ".sft"
+  ],
+  "cache_extensions": [
+    ".log",
+    ".tmp",
+    ".temp",
+    ".pyc",
+    ".whl",
+    ".tgz",
+    ".tar.gz",
+    ".dmp"
+  ],
+  "media_extensions": [
+    ".png",
+    ".jpg",
+    ".jpeg",
+    ".webp",
+    ".mp4",
+    ".webm",
+    ".gif",
+    ".wav",
+    ".mp3"
+  ],
+  "radars": [
+    {
+      "id": "hermes",
+      "name": "Hermes Agent",
+      "category": "AGENTS",
+      "icon": "⚡",
+      "targets": [
+        {
+          "path": "%APPDATA%\\Hermes\\Cache",
+          "safety": "green",
+          "kind": "Hermes Desktop — Web Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\Code Cache",
+          "safety": "green",
+          "kind": "Hermes Desktop — Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\GPUCache",
+          "safety": "green",
+          "kind": "Hermes Desktop — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\DawnGraphiteCache",
+          "safety": "green",
+          "kind": "Hermes Desktop — Dawn Graphite Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\DawnWebGPUCache",
+          "safety": "green",
+          "kind": "Hermes Desktop — WebGPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\blob_storage",
+          "safety": "green",
+          "kind": "Hermes Desktop — Blob Storage Temporal (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\composer-images",
+          "safety": "yellow",
+          "kind": "Hermes Desktop — Imágenes adjuntadas en Composer (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Hermes\\Partitions",
+          "safety": "yellow",
+          "kind": "Hermes Desktop — Sesiones y Particiones Web (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\hermes",
+          "safety": "yellow",
+          "kind": "Hermes Local — Subcarpetas (Skills y Memoria bloqueados en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.hermes",
+          "safety": "yellow",
+          "kind": "Hermes UserProfile — Subcarpetas (Skills y Memoria bloqueados en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\com.nousresearch.hermes.setup",
+          "safety": "green",
+          "kind": "Hermes Setup — Caché de Instalador (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "E:\\ia-ai\\.hermes.md",
+          "safety": "red",
+          "kind": "Reglas e Identidad de Hermes (.hermes.md Protegido 🔒)",
+          "group_mode": "single_file"
+        }
+      ]
+    },
+    {
+      "id": "antigravity_gemini",
+      "name": "Antigravity & Gemini",
+      "category": "AGENTS",
+      "icon": "🛸",
+      "targets": [
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\brain",
+          "safety": "yellow",
+          "kind": "Sesiones y Artefactos de Conversaciones Antigravity (Revisar antigüedad)",
+          "group_mode": "subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\conversations",
+          "safety": "yellow",
+          "kind": "Historiales de Conversaciones de Antigravity (.pb en Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\cache",
+          "safety": "green",
+          "kind": "Caché técnica interna de Antigravity (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\crashes",
+          "safety": "green",
+          "kind": "Reportes de Crash viejos de Antigravity (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\daemon",
+          "safety": "green",
+          "kind": "Logs del Daemon de Antigravity (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\persistent_terminals",
+          "safety": "green",
+          "kind": "Logs de Terminales Antiguas de Antigravity (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\sandbox",
+          "safety": "green",
+          "kind": "Entornos Sandbox Temporales de Gemini/Antigravity (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\tmp",
+          "safety": "green",
+          "kind": "Temporales de Gemini CLI (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\Cache",
+          "safety": "green",
+          "kind": "Antigravity App — Web & Media Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\Code Cache",
+          "safety": "green",
+          "kind": "Antigravity App — JS/WASM Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\GPUCache",
+          "safety": "green",
+          "kind": "Antigravity App — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\DawnGraphiteCache",
+          "safety": "green",
+          "kind": "Antigravity App — Dawn Graphite Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\DawnWebGPUCache",
+          "safety": "green",
+          "kind": "Antigravity App — Dawn WebGPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\ShaderCache",
+          "safety": "green",
+          "kind": "Antigravity App — Shader Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\logs",
+          "safety": "green",
+          "kind": "Antigravity App — Logs de Aplicación (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Antigravity\\blob_storage",
+          "safety": "green",
+          "kind": "Antigravity App — Blob Storage Temporal (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\antigravity-updater",
+          "safety": "green",
+          "kind": "Instaladores viejos de actualización de Antigravity (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\builtin",
+          "safety": "red",
+          "kind": "Skills y Herramientas Built-in de Antigravity (Protegido 🔒)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\knowledge",
+          "safety": "red",
+          "kind": "Base de Conocimiento y Memoria de Antigravity (Protegido 🔒)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%USERPROFILE%\\.gemini\\antigravity\\mcp",
+          "safety": "red",
+          "kind": "Configuración de Servidores MCP (Protegido 🔒)",
+          "group_mode": "root"
+        }
+      ]
+    },
+    {
+      "id": "codex_claude_cursor",
+      "name": "Codex / Cursor / Claude / Qwen / IDEs",
+      "category": "AGENTS",
+      "icon": "🤖",
+      "targets": [
+        {
+          "path": "%USERPROFILE%\\.codex",
+          "safety": "yellow",
+          "kind": "OpenAI Codex CLI — Subcarpetas (Skills, AGENTS.md y Configs bloqueados en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\codex",
+          "safety": "green",
+          "kind": "OpenAI Codex — Caché LocalAppData (Disco C:)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%APPDATA%\\codex",
+          "safety": "yellow",
+          "kind": "OpenAI Codex — Roaming Data (Configs bloqueadas en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.claude",
+          "safety": "yellow",
+          "kind": "Claude Code CLI — Subcarpetas (Skills, Commands, CLAUDE.md y Configs en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\Cache",
+          "safety": "green",
+          "kind": "Claude Desktop — Web Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\Code Cache",
+          "safety": "green",
+          "kind": "Claude Desktop — Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\GPUCache",
+          "safety": "green",
+          "kind": "Claude Desktop — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\DawnGraphiteCache",
+          "safety": "green",
+          "kind": "Claude Desktop — Dawn Graphite Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\DawnWebGPUCache",
+          "safety": "green",
+          "kind": "Claude Desktop — Dawn WebGPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\logs",
+          "safety": "green",
+          "kind": "Claude Desktop — Logs de Aplicación (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\Crashpad",
+          "safety": "green",
+          "kind": "Claude Desktop — Crashpad Dumps (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\vm_bundles",
+          "safety": "yellow",
+          "kind": "Claude Desktop — VM Bundles / Computer Use Sandbox (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%APPDATA%\\Claude\\claude_desktop_config.json",
+          "safety": "red",
+          "kind": "Claude Desktop — Configuración de Servidores MCP (Protegido 🔒)",
+          "group_mode": "single_file"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\AnthropicClaude",
+          "safety": "green",
+          "kind": "Claude Desktop — Paquetes de instalación/actualización viejos (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\claude-cli-nodejs",
+          "safety": "green",
+          "kind": "Claude CLI NodeJS — Caché local (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\Cache",
+          "safety": "green",
+          "kind": "Cursor IDE — Web Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\Code Cache",
+          "safety": "green",
+          "kind": "Cursor IDE — Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\GPUCache",
+          "safety": "green",
+          "kind": "Cursor IDE — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\DawnGraphiteCache",
+          "safety": "green",
+          "kind": "Cursor IDE — Dawn Graphite Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\DawnWebGPUCache",
+          "safety": "green",
+          "kind": "Cursor IDE — Dawn WebGPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\CachedData",
+          "safety": "green",
+          "kind": "Cursor IDE — CachedData de versiones anteriores (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\CachedExtensionVSIXs",
+          "safety": "green",
+          "kind": "Cursor IDE — Instaladores VSIX en caché (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\logs",
+          "safety": "green",
+          "kind": "Cursor IDE — Logs antiguos (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\Crashpad",
+          "safety": "green",
+          "kind": "Cursor IDE — Crashpad Dumps (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Cursor\\User\\workspaceStorage",
+          "safety": "yellow",
+          "kind": "Cursor IDE — Workspace Storage e Índices de Proyectos (Revisar antigüedad)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%USERPROFILE%\\.cursor",
+          "safety": "yellow",
+          "kind": "Cursor UserProfile — Subcarpetas (Rules, Skills y mcp.json bloqueados en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\cursor-updater",
+          "safety": "green",
+          "kind": "Cursor IDE — Instaladores de actualización viejos (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Windsurf\\Cache",
+          "safety": "green",
+          "kind": "Windsurf IDE — Web Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Windsurf\\CachedData",
+          "safety": "green",
+          "kind": "Windsurf IDE — CachedData (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%USERPROFILE%\\.codeium",
+          "safety": "yellow",
+          "kind": "Codeium / Windsurf — Subcarpetas (Configs bloqueadas en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.continue",
+          "safety": "yellow",
+          "kind": "Continue AI — Subcarpetas (Configs bloqueadas en Rojo 🔒)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.aider",
+          "safety": "green",
+          "kind": "Aider Coding Agent — Caché local (Disco C:)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%APPDATA%\\Qwen\\Cache",
+          "safety": "green",
+          "kind": "Qwen Desktop — Web Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Qwen\\Code Cache",
+          "safety": "green",
+          "kind": "Qwen Desktop — Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Qwen\\GPUCache",
+          "safety": "green",
+          "kind": "Qwen Desktop — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\qwen-updater",
+          "safety": "green",
+          "kind": "Qwen Desktop — Instaladores de Actualización Viejos (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Kling",
+          "safety": "red",
+          "kind": "Kling AI — Plugin After Effects Instalado (Protegido 🔒)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\Cache",
+          "safety": "green",
+          "kind": "VS Code — Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\Code Cache",
+          "safety": "green",
+          "kind": "VS Code — Code Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\CachedData",
+          "safety": "green",
+          "kind": "VS Code — CachedData de versiones viejas (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\CachedExtensionVSIXs",
+          "safety": "green",
+          "kind": "VS Code — Instaladores VSIX ya instalados en caché (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\GPUCache",
+          "safety": "green",
+          "kind": "VS Code — GPU Cache Pura (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Code\\logs",
+          "safety": "green",
+          "kind": "VS Code — Logs viejos (Disco C:)",
+          "group_mode": "root"
+        }
+      ]
+    },
+    {
+      "id": "comfyui",
+      "name": "ComfyUI & GenAI Local",
+      "category": "COMFYUI",
+      "icon": "🎨",
+      "targets": [
+        {
+          "path": "%COMFYUI_ROOT%\\temp",
+          "safety": "green",
+          "kind": "ComfyUI Previews & Temp (Seguro limpiar)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\output",
+          "safety": "yellow",
+          "kind": "ComfyUI Outputs Generados (Imágenes/Videos)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\input",
+          "safety": "yellow",
+          "kind": "ComfyUI Input Media (Imágenes/Videos de entrada)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\checkpoints",
+          "safety": "yellow",
+          "kind": "ComfyUI Checkpoints (.safetensors / .ckpt)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\unet",
+          "safety": "yellow",
+          "kind": "ComfyUI UNET / Diffusion Models (Flux / WAN / LTX)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\diffusion_models",
+          "safety": "yellow",
+          "kind": "ComfyUI Diffusion Models (Z-Image / LTX / WAN)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\text_encoders",
+          "safety": "yellow",
+          "kind": "ComfyUI Text Encoders (T5 / Qwen / LLM Encoders)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\clip",
+          "safety": "yellow",
+          "kind": "ComfyUI CLIP Models",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\clip_vision",
+          "safety": "yellow",
+          "kind": "ComfyUI CLIP Vision Models",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\loras",
+          "safety": "yellow",
+          "kind": "ComfyUI LoRAs",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\controlnet",
+          "safety": "yellow",
+          "kind": "ComfyUI ControlNet Models",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\upscale_models",
+          "safety": "yellow",
+          "kind": "ComfyUI Upscale Models",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\models\\vae",
+          "safety": "yellow",
+          "kind": "ComfyUI VAE Models",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%COMFYUI_ROOT%\\user\\default\\workflows",
+          "safety": "red",
+          "kind": "Workflows Guardados en ComfyUI (Protegido 🔒)",
+          "group_mode": "root"
+        },
+        {
+          "path": "E:\\ia-ai\\workflows",
+          "safety": "red",
+          "kind": "Workflows de ComfyUI en E:\\ia-ai (.json Protegidos 🔒)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "E:\\ia-ai\\outputs",
+          "safety": "yellow",
+          "kind": "Outputs locales en E:\\ia-ai",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "E:\\ia-ai\\modelos",
+          "safety": "yellow",
+          "kind": "Modelos locales en E:\\ia-ai",
+          "group_mode": "files_and_subfolders"
+        }
+      ]
+    },
+    {
+      "id": "models_hub",
+      "name": "HuggingFace / Ollama / Triton / LocalAI",
+      "category": "MODELS",
+      "icon": "🧠",
+      "targets": [
+        {
+          "path": "%USERPROFILE%\\.cache\\huggingface\\hub",
+          "safety": "yellow",
+          "kind": "Repositorio Hugging Face Hub Cache (Disco C:)",
+          "group_mode": "huggingface"
+        },
+        {
+          "path": "%USERPROFILE%\\.cache",
+          "safety": "green",
+          "kind": "Caché global en UserProfile (.cache)",
+          "group_mode": "dot_cache_smart"
+        },
+        {
+          "path": "%USERPROFILE%\\.triton",
+          "safety": "green",
+          "kind": "Triton GPU Kernel Cache (PyTorch / ComfyUI en Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\Ollama",
+          "safety": "yellow",
+          "kind": "Ollama LocalAppData & Logs/Updates (Disco C:)",
+          "group_mode": "agent_smart_subfolders"
+        },
+        {
+          "path": "%USERPROFILE%\\.ollama\\models\\blobs",
+          "safety": "yellow",
+          "kind": "Ollama Model Blobs (GGUF Weights y detección de blobs huérfanos en Disco C:)",
+          "group_mode": "files_and_subfolders"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\llama.cpp",
+          "safety": "green",
+          "kind": "Llama.cpp Cache en LocalAppData (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\comfy-cli",
+          "safety": "green",
+          "kind": "Comfy-CLI Cache en LocalAppData (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\fastmcp",
+          "safety": "green",
+          "kind": "FastMCP Cache en LocalAppData (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\ms-playwright-go",
+          "safety": "yellow",
+          "kind": "Navegadores Playwright para Automatización IA (Disco C:)",
+          "group_mode": "root"
+        }
+      ]
+    },
+    {
+      "id": "dev_cache",
+      "name": "Python / NPM / Adobe Cache / Shaders C:",
+      "category": "DEVCACHE",
+      "icon": "📦",
+      "targets": [
+        {
+          "path": "%LOCALAPPDATA%\\pip\\Cache",
+          "safety": "green",
+          "kind": "Caché de paquetes Python pip (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\conda\\pkgs",
+          "safety": "green",
+          "kind": "Paquetes descargados en caché de Conda (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\uv\\cache",
+          "safety": "green",
+          "kind": "Caché de paquetes Astral UV (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\npm-cache",
+          "safety": "green",
+          "kind": "Caché de paquetes Node.js npm (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\npm-cache",
+          "safety": "green",
+          "kind": "Caché de paquetes Node.js npm Roaming (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\pnpm\\store",
+          "safety": "green",
+          "kind": "Almacén de paquetes PNPM en caché (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\cache",
+          "safety": "green",
+          "kind": "Caché de Herramientas en LocalAppData\\cache (Disco C:)",
+          "group_mode": "subfolders_or_root"
+        },
+        {
+          "path": "%APPDATA%\\Adobe\\Common\\Media Cache Files",
+          "safety": "green",
+          "kind": "Adobe After Effects / Premiere — Media Cache Files (Seguro limpiar)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%APPDATA%\\Adobe\\Common\\Media Cache",
+          "safety": "green",
+          "kind": "Adobe After Effects / Premiere — Media Cache Database (Seguro limpiar)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\Adobe\\Common\\Media Cache Files",
+          "safety": "green",
+          "kind": "Adobe Local — Media Cache Files (Seguro limpiar)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\NVIDIA\\DXCache",
+          "safety": "yellow",
+          "kind": "Shaders de Juegos/3D (DirectX) — Opcional: si lo borrás, los juegos recompilarán shaders al abrir",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\NVIDIA\\GLCache",
+          "safety": "yellow",
+          "kind": "Shaders de Juegos/3D (OpenGL) — Opcional: si lo borrás, las apps 3D recompilarán shaders al abrir",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\D3DSCache",
+          "safety": "yellow",
+          "kind": "Shaders Direct3D de Windows — Opcional: si lo borrás, se recompilan al abrir juegos/apps 3D",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\CrashDumps",
+          "safety": "green",
+          "kind": "Volcados de Crash (.dmp) de Aplicaciones en Windows (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\SquirrelTemp",
+          "safety": "green",
+          "kind": "Temporales de Instaladores Squirrel/Electron (Disco C:)",
+          "group_mode": "root"
+        },
+        {
+          "path": "%LOCALAPPDATA%\\Temp",
+          "safety": "green",
+          "kind": "Carpeta Temp de Windows (Incluye caché temporal de Adobe e IA en Disco C:)",
+          "group_mode": "temp_ai_only"
+        }
+      ]
+    }
+  ]
+}

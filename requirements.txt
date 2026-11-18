@@ -1,0 +1,6 @@
+# BYE-AI-CACHE v1.0 corre 100% nativo con la librería estándar de Python 3.10+ en Windows
+# (incluye soporte nativo para Papelera de Reciclaje vía ctypes Shell32 y ventana de escritorio vía Edge/Chrome --app).
+#
+# Paquetes opcionales si querés usar pywebview o send2trash multiplataforma:
+# send2trash>=1.8.2
+# pywebview>=5.0
